@@ -191,19 +191,85 @@ document.getElementById("borrar").addEventListener("click", ()=>{
 //----------------------------------------
 
 
-//--------------EDITAR----------
-
-const editPerson = ()=>{
-  
-}
 
 
 
 
 
-document.getElementById("editar").addEventListener("click", ()=>{
-   editPerson();
-})//al hacer click en el botón borrar hace deletePersona
+document.addEventListener('DOMContentLoaded', () => {
+    readAll(); // lee todas las personas y las pinta al cargar la página
+});//fin de pintar persona
+
+
+// //--------------EDITAR----------
+
+// const editPerson = async () => {
+//     const nombreEditar = prompt("Introduce el nombre de la persona que quieres editar:");
+//     if (!nombreEditar) return; // si el usuario cancela o deja vacío
+
+//     // Buscar documentos con ese nombre
+//     const resultGet = await db.collection("personas")
+//                               .where("name", "==", nombreEditar)
+//                               .get();
+
+//     if (resultGet.empty) {
+//         alert(`No se encontró ninguna persona con el nombre "${nombreEditar}"`);
+//         return;
+//     }
+
+//     // Si hay varias personas con el mismo nombre, tomamos la primera
+//     const doc = resultGet.docs[0];
+//     const data = doc.data();
+//     const docId = doc.id;
+
+//     // Seleccionamos la tarjeta correspondiente en el DOM
+//     const tarjeta = document.getElementById(docId);
+
+//     // Crear un formulario debajo de la tarjeta
+//     let form = document.createElement("form");
+//     form.innerHTML = `
+//         <input type="text" id="editName" value="${data.name}" placeholder="Nombre">
+//         <input type="email" id="editEmail" value="${data.email}" placeholder="Email">
+//         <input type="text" id="editMessage" value="${data.message}" placeholder="Mensaje">
+//         <input type="text" id="editUrl" value="${data.url}" placeholder="URL de la foto">
+//         <button type="submit">Guardar</button>
+//     `;
+    
+
+   
+
+//     card.appendChild(form);
+
+//     // Evento submit para actualizar los datos
+//     form.addEventListener("submit", async (e) => {
+//         e.preventDefault();
+
+//         await db.collection("personas").doc(docId).update({
+//             name: form.editName.value,
+//             email: form.editEmail.value,
+//             message: form.editMessage.value,
+//             url: form.editUrl.value
+//         });
+
+//         // Actualizar la tarjeta en el DOM
+//         tarjeta.querySelector("h2").textContent = form.editName.value;
+//         tarjeta.querySelectorAll("p")[0].textContent = form.editEmail.value;
+//         tarjeta.querySelectorAll("p")[1].textContent = form.editMessage.value;
+//         tarjeta.querySelector("img").src = form.editUrl.value;
+
+//         // Eliminar el formulario después de guardar
+//         form.remove();
+//     });
+// };
+
+
+
+
+
+
+// document.getElementById("editar").addEventListener("click", ()=>{
+//    editPerson();
+// })//al hacer click en el botón borrar hace deletePersona
 
 
 
@@ -230,6 +296,3 @@ document.getElementById("editar").addEventListener("click", ()=>{
 //----------------------------------------
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    readAll(); // lee todas las personas y las pinta al cargar la página
-});//fin de pintar persona

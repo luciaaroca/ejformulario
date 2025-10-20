@@ -54,8 +54,21 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color:#f4f8f9;
 }
-
+header{
+	background-color:cadetblue;
+    color: beige;
+	padding: 20px;
+	position: fixed; /*no admite el height*/
+    top:0;
+    left:0;
+    display: flex; /*poner los elementos alineados al lado*/
+	justify-content: center;
+	box-sizing: border-box;
+	width: 100%;
+	z-index: 999;
+}
 img{
     width: 200px;
    
@@ -68,12 +81,40 @@ button{
     margin-top: 10px;
     
 }
+h2{
+    font-weight: 700px;
+    font-size: 20px;
+    color:#225765;
+    margin-bottom: 10px;
+}
+p{
+    margin-bottom: 10px;
+}
 #formulario{
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin: 0 auto;
     max-width: 500px;
+    background-color:#bcd6dd;
+    padding: 20px;
+    border-radius: 6px;
+    margin-top: 60px;
+}
+#formulario button{
+    background-color: white; /* verde agradable */
+    color: #96c8d6;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s; 
+}
+#formulario button:hover{
+     background-color: #4e6d73; /* un poco más oscuro al pasar el mouse */
+    transform: scale(1.05); /* efecto ligero de zoom */
 }
 #personas{
     display: flex;
@@ -82,4 +123,37 @@ button{
     align-items: center;
     margin-top: 20px;
     gap: 20px;
+}
+#botones{
+    text-align: center;
+    margin-top: 20px;
+}
+
+#botones button {
+    background-color: #96c8d6; /* verde agradable */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#botones button:hover {
+    background-color: #4e6d73; /* un poco más oscuro al pasar el mouse */
+    transform: scale(1.05); /* efecto ligero de zoom */
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    border: solid 2px  #4e6d73;
+   
+    
 }
