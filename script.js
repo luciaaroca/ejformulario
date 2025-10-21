@@ -1,5 +1,5 @@
 
-//------------------configuración de firebase:--------
+//-----------CONFIGURACIÓN FIREBASE------------
 const firebaseConfig = {
     apiKey: "AIzaSyBTLcUzPjMWysHsfBc_X6dyp3aI58zjcMw",
     authDomain: "fir-web-37d16.firebaseapp.com",
@@ -15,41 +15,112 @@ const db = firebase.firestore();//(db) objeto que representa mi base de datos - 
 //----------------------------------------
 
 
+
+
+////***********local storage************/
+
+const limpiarBtn = document.getElementById("limpiar");
+const campos = ["email", "name", "message", "url"];
+   /*const formulario = document.getElementById("formulario");------->lo hemos puesto abajo*/
+
+campos.forEach(campo => { //
+  const input = document.getElementById(campo);
+  input.addEventListener("change", guardarFormulario);
+});   
+
+function guardarFormulario() {
+  const formData = {};
+  campos.forEach(campo => formData[campo] = document.getElementById(campo).value);
+  localStorage.setItem("form_data", JSON.stringify(formData));
+}
+//***********************/
+
+
+
+
 //-------------validar campos del formulario---------------
 const formulario = document.getElementById("formulario");
 
 formulario.addEventListener("submit", function(event){ 
   event.preventDefault();
 
-  const email = document.getElementById("email").value.trim();
-  const name = document.getElementById("name").value.trim();
-  const message = document.getElementById("message").value.trim();
-  const url = document.getElementById("url").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const name = document.getElementById("name").value.trim();
+      const message = document.getElementById("message").value.trim();
+      const url = document.getElementById("url").value.trim();
 
-  
-  const regexMessage = /^.{0,50}$/;
-  if(!regexMessage.test(message)){
-    /*alert ("Error: el texto tiene que tener menos de 50 caracteres");
-    return*/
-    Swal.fire({
-    icon: "error",
-    title: "Tu mensaje es demasiado largo",
-    text: "Escribe un mensaje con menos de 50 caracteres",
-   });
+      //validaciones
+      if (!name || !email || !message || !url) {
+        alert("Completa todos los campos.");
+        return;
+      }
+      const regexMessage = /^.{0,50}$/;
+      if(!regexMessage.test(message)){
+        /*alert ("Error: el texto tiene que tener menos de 50 caracteres");
+        return*/
+        Swal.fire({
+        icon: "error",
+        title: "Tu mensaje es demasiado largo",
+        text: "Escribe un mensaje con menos de 50 caracteres",
+      });
+      }
 
-  }
+      //***********local storage************/
+      let registros = JSON.parse(localStorage.getItem("registros")) || []; //convertimos a objetos y realizamos la descarga
+      registros.push({ email, name, message, url });
+      localStorage.setItem("registros", JSON.stringify(registros)); //tenemos que volver a convertir tdo a string
+      //***********************/
 
-  formulario.reset()
+      
+      cargarFormulario()
 
-  createPerson({
-        name: name,
-        email: email,
-        message: message,
-        url: url
-    }); //creamos el objeto que queremos guardar en la colección
+      formulario.reset()
 
+      createPerson({
+            name: name,
+            email: email,
+            message: message,
+            url: url
+        }); //creamos el objeto que queremos guardar en la colección
+      
+      
 })//cerramos el addeventlistener
 //----------------------------------------
+
+
+
+
+//***********local storage************/
+function cargarFormulario() {
+  const data = JSON.parse(localStorage.getItem("form_data")); //gracias al getItem (guarda los datos)
+  if (data) {
+    campos.forEach(campo => {
+      const input = document.getElementById(campo);
+      input.value = data[campo ] || ""; //si no pones los datos se queda vacío
+    });
+  }
+}
+//***********************/
+
+
+
+
+
+
+//------------BTN LIMPIAR FORM-------------------------
+//función limpiar
+function limpiarFormulario(){
+  formulario.reset();
+  localStorage.removeItem("form_data");
+}
+//llamamos a la función al hacer click
+limpiarBtn.addEventListener("click",()=>{
+  limpiarFormulario();
+})
+//-----------------------------
+
+
+
 
 
 //-------------Guardar datos en firebase (crear un objeto para la colección)---------------
@@ -64,6 +135,10 @@ const createPerson = (person) => {//persona será un objeto con los datos que qu
     .catch((error) => console.error("Error adding document: ", error));
 };
 //----------------------------------------
+
+
+
+
 
 
 //-------------MOSTRAR DATOS EN EL DOM ---------------
@@ -105,6 +180,8 @@ const printPerson = (name, email, message, url, /*docId*/) =>{
     let mensaje = document.createElement('p');
     mensaje.innerHTML=message;
 
+    
+
     /*let id = document.createElement("p");
     id.innerText= "ID:" + docId;*/
 
@@ -118,6 +195,9 @@ const printPerson = (name, email, message, url, /*docId*/) =>{
     personas.appendChild(card);
 };
 //----------------------------------------
+
+
+
 
 //--------------BORRAR UNA PERSONA----------
 const deletePerson = () => {
@@ -155,6 +235,10 @@ document.getElementById("borrar1").addEventListener("click", ()=>{
 })//al hacer click en el botón borrar hace deletePersona
 //----------------------------------------
 
+
+
+
+
 //--------------BORRAR TODAS----------
 
 const deleteAll = () =>{
@@ -190,15 +274,14 @@ document.getElementById("borrar").addEventListener("click", ()=>{
 
 //----------------------------------------
 
-
-
-
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
-    readAll(); // lee todas las personas y las pinta al cargar la página
+    readAll();
+    cargarFormulario(); // lee todas las personas y las pinta al cargar la página
 });//fin de pintar persona
+
+
+
+
 
 
 // //--------------EDITAR----------
@@ -281,18 +364,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-//--------------BORRAR UNA PERSONA----------
-// const deletePerson = () => {
-//     const idBorrar = prompt('Introduce el id de la persona que quieres borrar');
-//     db.collection("personas").doc(idBorrar).delete().then(()=>{
-//         alert(`Se ha borrado la persona con el siguiente id: ${idBorrar}`);
-//         document.getElementById("personas").innerHTML="";
-//         readAll()
-//     })
-//     .catch(()=> console.log("Error al borrar la persona deseada"))
-// };//fin de borrar persona
-
-
-//----------------------------------------
 
 

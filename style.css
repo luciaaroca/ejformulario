@@ -1,3 +1,7 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 /*RESET*/
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -55,10 +59,13 @@ body{
     justify-content: center;
     align-items: center;
     background-color:#f4f8f9;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 header{
 	background-color:cadetblue;
-    color: beige;
+    color:white;
 	padding: 20px;
 	position: fixed; /*no admite el height*/
     top:0;
@@ -71,6 +78,8 @@ header{
 }
 img{
     width: 200px;
+    margin-bottom: 10px;
+    border-radius: 5px;
    
 }
 label{
@@ -80,6 +89,13 @@ label{
 button{
     margin-top: 10px;
     
+}
+h1{
+    font-family: "Anton", sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 30px;
+    letter-spacing: 2px
 }
 h2{
     font-weight: 700px;
@@ -124,12 +140,17 @@ p{
     margin-top: 20px;
     gap: 20px;
 }
-#botones{
+#botones1{
     text-align: center;
     margin-top: 20px;
 }
 
-#botones button {
+#botones2{
+    text-align: center;
+    margin-top: 20px;
+}
+
+#botones2 button {
     background-color: #96c8d6; /* verde agradable */
     color: white;
     border: none;
@@ -141,7 +162,8 @@ p{
     transition: background-color 0.3s, transform 0.2s;
 }
 
-#botones button:hover {
+
+#botones2 button:hover {
     background-color: #4e6d73; /* un poco más oscuro al pasar el mouse */
     transform: scale(1.05); /* efecto ligero de zoom */
 }
@@ -154,6 +176,5 @@ p{
     padding: 20px;
     border-radius: 8px;
     border: solid 2px  #4e6d73;
-   
     
 }
